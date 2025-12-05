@@ -1,0 +1,106 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+
+body {
+	font-size:22px;
+	color: #ffffff;
+	font-family: 'Open Sans', sans-serif;
+	background-color:  white;
+	height: 950px;
+	}
+
+h1 {
+	font-size: 60px;
+	text-align: center;
+}	
+
+
+#container {
+	margin: 0 auto;
+}
+
+
+nav {
+	margin:0;
+	background-color: #8C1514;
+}
+ul{
+	margin: 0;
+}
+nav ul {
+	padding: 0;
+  	margin: 0;
+	list-style: none;
+}
+	
+nav ul li {
+	display:inline-block;
+	background-color: #8C1514 ;
+	}
+
+nav a {
+	display:block;
+	padding:0 20px;	
+	color:white;
+	font-size:20px;
+	line-height: 60px;
+	text-decoration:none;
+}
+
+nav a:hover { 
+	background-color: #8C1514 ; 
+}
+
+/* Hide Dropdowns by Default */
+nav ul ul {
+	display: none;
+}
+	
+/* Display Dropdowns on Hover */
+nav ul li:hover > ul {
+	display:inherit;
+}
+	
+/* Fisrt Tier Dropdown */
+nav ul ul li {
+	width:170px;
+	float:none;
+	display:list-item;
+	position: relative;
+}
+
+/* Second, Third and more Tiers	*/
+nav ul ul ul li {
+	position: relative;
+	top:-60px; 
+	left:170px;
+}
+
+	
+/* Change this in order to change the Dropdown symbol */
+li > a:after { content:  ' +'; }
+li > a:only-child:after { content: ''; }
+
+.center{
+	text-align: center;
+}
+
+.align_both_sides{
+	text-align: justify;
+}
+
+.content {
+	display: none; /* 默认隐藏所有内容 */
+}
+
+.active {
+	display: block; /* 显示活动内容 */
+}
+
+h1,h2,h3,h4,h5,h6,p,a{
+	font-family: Futura;
+}
+
+p{
+	text-align: justify;
+}

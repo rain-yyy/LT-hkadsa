@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Futura';
+    src: url('../font/Futura.otf') format('opentype');
+  }
+
+  body {
+    font-family: 'Futura';
+  }
