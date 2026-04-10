@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/site-layout.astro';
+
+const allNews = await getCollection('news');
+allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<SiteLayout title="News">
+  <h3 style="text-indent: 20px;">News</h3>
+
+  {allNews.map(item => (
+    <>
+      <h4>{item.data.title}</h4>
+      {item.data.type === 'external' && item.data.externalUrl ? (
+        <a href={item.data.externalUrl} target="_blank">
+          {item.data.cover && (
+            <img src={item.data.cover} style="width: 100%;">
+          )}
+        </a>
+      ) : (
+        <a href={`/news/${item.slug}`}>
+          {item.data.cover && (
+            <img src={item.data.cover} style="width: 100%;">
+          )}
+        </a>
+      )}
+    </>
+  ))}
+</SiteLayout>

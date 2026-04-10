@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  wrapContent?: boolean;
+}
+
+const {
+  title = 'HKADSA',
+  wrapContent = true,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="max-age=1800, must-revalidate">
+  <meta http-equiv="Expires" content="1800">
+  <meta http-equiv="Pragma" content="no-cache">
+  <title>{title} | Hong Kong Audio Description Studies Association</title>
+</head>
+<body>
+
+<div id="TITLE" style="display: flex; height:20%; align-items: center; justify-content: center; position: relative; padding: 0 25%">
+    <img src="/images/logo-removebg.png" style="position: relative; top:15%; max-width: 30%">
+  <div class="center">
+    <h2 class="center" style="color: #116071; margin: 0; padding: 0;">Hong Kong Audio Description Studies Association (HKADSA)</h2>
+    <h2 class="center" style="color: #116071; margin: 0; padding: 0;">香港口述影像研究會</h2>
+  </div>
+</div>
+
+<div id="container" class="center">
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/news">News</a></li>
+      <li><a href="/executive-committee">Executive Committee</a></li>
+      <li><a href="/activities">Activities</a></li>
+      <li><a href="/learning-materials">Learning materials</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div style="background-color: white; color: #116071; padding: 5px;">
+  {wrapContent ? (
+    <div style="width: 70%; margin: auto;">
+      <slot />
+    </div>
+  ) : (
+    <slot />
+  )}
+</div>
+
+<!-- 访客计数器 -->
+<div id="visitor-counter" style="position: fixed; bottom: 20px; right: 20px; background-color: rgba(17, 96, 113, 0.8); color: white; padding: 10px 15px; border-radius: 10px; font-family: 'Futura', Arial, sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display: flex; align-items: center; z-index: 1000;">
+  <div style="margin-right: 10px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+      <circle cx="9" cy="7" r="4"></circle>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+    </svg>
+  </div>
+  <div>
+    <div style="font-size: 12px;">Visitors</div>
+    <div id="visitor-count" style="font-size: 18px; font-weight: bold;">Loading...</div>
+  </div>
+</div>
+
+<script>
+  const counterUrl = 'https://lt-visitor-counter.tianruifan21.workers.dev/';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch(counterUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('网络响应不正常');
+        }
+        return response.text();
+      })
+      .then(data => {
+        document.getElementById('visitor-count')!.textContent = data;
+        const counterElement = document.getElementById('visitor-counter')!;
+        counterElement.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+          counterElement.style.transform = 'scale(1)';
+        }, 300);
+      })
+      .catch(error => {
+        console.error('获取访问计数失败:', error);
+        document.getElementById('visitor-count')!.textContent = '无法获取';
+      });
+  });
+</script>
+
+</body>
+</html>

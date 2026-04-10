@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/site-layout.astro';
+
+const allActivities = await getCollection('activities');
+
+allActivities.sort((a, b) => {
+  if (b.data.year !== a.data.year) return b.data.year - a.data.year;
+  if (b.data.month !== a.data.month) return b.data.month - a.data.month;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
+
+const monthNames = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+function getMonthName(month: number): string {
+  return monthNames[month - 1];
+}
+
+// Group by year, then by month
+const byYear = new Map<number, Map<string, typeof allActivities>>();
+for (const act of allActivities) {
+  const year = act.data.year;
+  const monthKey = String(act.data.month);
+  if (!byYear.has(year)) byYear.set(year, new Map());
+  const yearMap = byYear.get(year)!;
+  if (!yearMap.has(monthKey)) yearMap.set(monthKey, []);
+  yearMap.get(monthKey)!.push(act);
+}
+
+const sortedYears = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<SiteLayout title="Activities">
+  <div style="color: #116071;">
+    <h3 style="text-indent: 20px;">Activities</h3>
+
+    {sortedYears.map(year => {
+      const monthMap = byYear.get(year)!;
+      const sortedMonths = [...monthMap.keys()].sort((a, b) => Number(b) - Number(a));
+      return (
+        <>
+          <h4>{year}</h4>
+          <ul>
+            {sortedMonths.map(monthKey => {
+              const acts = monthMap.get(monthKey)!;
+              const firstAct = acts[0];
+              const label = firstAct.data.monthLabel || getMonthName(firstAct.data.month);
+              return (
+                <li>
+                  {label}
+                  <ul>
+                    {acts.map(act => (
+                      <li>
+                        {act.data.externalUrl ? (
+                          <a href={act.data.externalUrl} target="_blank" style="color: #116071; text-decoration: none;">
+                            {act.data.title}
+                          </a>
+                        ) : (
+                          <a href={`/activities/${act.slug}`} style="color: #116071; text-decoration: none;">
+                            {act.data.title}
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      );
+    })}
+  </div>
+</SiteLayout>
