@@ -1,6 +1,6 @@
 ---
 title: "Published an open access journal article titled “Audio description in translation studies: the state of the field”"
-date: 2026-04-01
+date: 2026-04-02
 year: 2026
 month: 4
 summary: "Published an open access journal article"
