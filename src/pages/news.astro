@@ -19,7 +19,7 @@ allNews.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
           )}
         </a>
       ) : (
-        <a href={`/news/${item.slug}`}>
+        <a href={`/news/${item.id}`}>
           {item.data.cover && (
             <img src={item.data.cover} style="width: 100%;">
           )}

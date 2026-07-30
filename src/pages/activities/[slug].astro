@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import ActivityDetailLayout from '../../layouts/activity-detail-layout.astro';
 
 export async function getStaticPaths() {
   const activities = await getCollection('activities', ({ data }) => !data.externalUrl);
   return activities.map((activity) => ({
-    params: { slug: activity.slug },
+    params: { slug: activity.id },
     props: { activity },
   }));
 }
 
 const { activity } = Astro.props;
-const { Content } = await activity.render();
+const { Content } = await render(activity);
 ---
 
 <ActivityDetailLayout title={activity.data.title}>
