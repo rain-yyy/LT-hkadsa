@@ -8,7 +8,7 @@ summary: 'Invited Dr. LIU Zhengdong to Deliver LT Workshop “Language and Art: 
 
 <h2 class="center">Invited Dr. LIU Zhengdong to Deliver LT Workshop “Language and Art: Knowledge and Skills in Describing Museum Artifacts”</h2>
 
-<img src="/image/activities/November_2024/image1.png" style="width: 100%; padding: 5px;" />
+<img src="/images/activities/November-2024/image1.png" style="width: 100%; padding: 5px;" />
 
 <p style="text-indent: 30px;">On 21 November 2024, the Hong Kong Audio Description Studies Association (HKADSA) held an LT Workshop at City University of Hong Kong, co-organised under the theme “Language and Art: Knowledge and Skills in Describing Museum Artifacts (語言與藝術：博物館文物描述的知識儲備與技能培養).”</p>
 
